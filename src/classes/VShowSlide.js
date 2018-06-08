@@ -59,7 +59,7 @@ export default class VShowSlide {
    * @param {Object} options Options passed to plugin
    */
   validateOptions (options) {
-    if (options.hasOwnProperty('customEasing')) {
+    if (typeof variable !== 'undefined' && options.hasOwnProperty('customEasing')) {
       this.easingOptions.custom = options.customEasing
     }
   }
@@ -70,7 +70,7 @@ export default class VShowSlide {
    */
   kebabToCamel (string) {
     return string.replace(/-([a-z])/g, function (g) {
-      return g[1].toUpperCase() 
+      return g[1].toUpperCase()
     })
   }
 

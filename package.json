@@ -4,7 +4,11 @@
   "description": "Vue.js directive for animating element to and from height: auto in a sliding motion",
   "main": "dist/v-show-slide.js",
   "author": "Peter Hegman",
-  "license": "MIT",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phegman/v-show-slide.git"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
