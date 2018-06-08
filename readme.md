@@ -91,7 +91,7 @@ Example:
 </ul>
 ```
 
-### Custom Easing
+### Custom easing
 
 If you want to define custom easing using `cubic-bezier` this can be done when installing the plugin. Pass an options object as the second parameter in `Vue.use`.
 
@@ -111,8 +111,8 @@ Your custom easing can then be used like so (make sure to convert easing name to
 
 ## Support
 
-Please [open an issue](https://github.com/fraction/readme-boilerplate/issues/new) for support.
+Please [open an issue](https://github.com/phegman/v-show-slide/issues/new/) for support.
 
 ## Contributing
 
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/fraction/readme-boilerplate/compare/).
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/phegman/v-show-slide/compar/e).
