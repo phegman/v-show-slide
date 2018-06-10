@@ -59,7 +59,7 @@ export default class VShowSlide {
    * @param {Object} options Options passed to plugin
    */
   validateOptions (options) {
-    if (typeof variable !== 'undefined' && options.hasOwnProperty('customEasing')) {
+    if (typeof options !== 'undefined' && options.hasOwnProperty('customEasing')) {
       this.easingOptions.custom = options.customEasing
     }
   }
