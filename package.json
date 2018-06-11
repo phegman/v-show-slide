@@ -1,6 +1,6 @@
 {
   "name": "v-show-slide",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Vue.js directive for animating element to and from height: auto in a sliding motion",
   "main": "dist/v-show-slide.js",
   "author": "Peter Hegman",
