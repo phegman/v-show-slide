@@ -1,33 +1,35 @@
 import VShowSlide from '../src/classes/VShowSlide.js'
 
 let testVShowSlide
+let el
 
 beforeEach(() => {
   testVShowSlide = new VShowSlide()
+  el = document.createElement('ul')
 })
 
 test('easing argument is parsed when set', () => {
-  testVShowSlide.parseArgs({
+  testVShowSlide.parseArgs(el, {
     arg: '5000:ease-in'
   })
-  expect(testVShowSlide.easing).toBe('ease-in')
+  expect(el.easing).toBe('ease-in')
 })
 
 test('if no easing is set it defaults to ease', () => {
-  testVShowSlide.parseArgs({})
-  expect(testVShowSlide.easing).toBe('ease')
+  testVShowSlide.parseArgs(el, {})
+  expect(el.easing).toBe('ease')
 })
 
 test('duration argument is parsed when set', () => {
-  testVShowSlide.parseArgs({
+  testVShowSlide.parseArgs(el, {
     arg: '5000:ease-in'
   })
-  expect(testVShowSlide.duration).toBe(5000)
+  expect(el.duration).toBe(5000)
 })
 
 test('if no duration is set it defaults to 300', () => {
-  testVShowSlide.parseArgs({})
-  expect(testVShowSlide.duration).toBe(300)
+  testVShowSlide.parseArgs(el, {})
+  expect(el.duration).toBe(300)
 })
 
 test('convert kebab-case to camelCase', () => {
@@ -49,8 +51,8 @@ test('custom easing option can be used', () => {
       fooBar: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
     }
   })
-  testVShowSlide.parseArgs({
+  testVShowSlide.parseArgs(el, {
     arg: '5000:foo-bar'
   })
-  expect(testVShowSlide.easing).toBe('cubic-bezier(0.68, -0.55, 0.265, 1.55)')
+  expect(el.easing).toBe('cubic-bezier(0.68, -0.55, 0.265, 1.55)')
 })

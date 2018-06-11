@@ -22,7 +22,7 @@ export default class VShowSlide {
     Vue.directive('show-slide', {
       bind: this.bind.bind(this),
       inserted: this.inserted.bind(this),
-      update: this.update.bind(this)
+      componentUpdated: this.componentUpdated.bind(this)
     })
   }
 
@@ -32,8 +32,7 @@ export default class VShowSlide {
    * @param {Object} binding Binding options
    */
   bind (el, binding) {
-    this.parseArgs(binding)
-    this.open = binding.value
+    this.parseArgs(el, binding)
   }
 
   /**
@@ -42,16 +41,16 @@ export default class VShowSlide {
    * @param {Object} binding Binding options
    */
   inserted (el, binding) {
-    this.initializeTarget(el)
+    this.initializeTarget(el, binding.value)
   }
 
   /**
-   * Update directive hook. Called after the containing component’s VNode has updated
+   * Update directive hook. called after the containing component’s VNode and the VNodes of its children have updated
    * @param {Node} el Element directive is bound to
    * @param {Object} binding Binding options
    */
-  update (el, binding) {
-    this.toggleSlide(el)
+  componentUpdated (el, binding) {
+    this.toggleSlide(el, binding.value)
   }
 
   /**
@@ -76,69 +75,74 @@ export default class VShowSlide {
 
   /**
    * Parse directive arguments
+   * @param {Node} el Element directive is bound to
    * @param {Object} binding Binding options
    */
-  parseArgs (binding) {
+  parseArgs (el, binding) {
     if (binding.hasOwnProperty('arg')) {
       const argsArray = binding.arg.split(':')
-      this.validateEasing(argsArray)
-      this.validateDuration(argsArray)
+      this.validateEasing(el, argsArray)
+      this.validateDuration(el, argsArray)
     } else {
-      this.duration = 300
-      this.durationInSeconds = '0.3s'
-      this.easing = 'ease'
+      el.duration = 300
+      el.durationInSeconds = '0.3s'
+      el.easing = 'ease'
     }
   }
 
   /**
    * Validate easing option
+   * @param {Node} el Element directive is bound to
    * @param {Array} argsArray Array of arguments
    */
-  validateEasing (argsArray) {
+  validateEasing (el, argsArray) {
     if (argsArray.hasOwnProperty(1)) {
       if (this.easingOptions.builtIn.includes(argsArray[1])) {
-        this.easing = argsArray[1]
+        el.easing = argsArray[1]
       } else if (this.easingOptions.custom.hasOwnProperty(this.kebabToCamel(argsArray[1]))) {
-        this.easing = this.easingOptions.custom[this.kebabToCamel(argsArray[1])]
+        el.easing = this.easingOptions.custom[this.kebabToCamel(argsArray[1])]
       } else {
-        this.easing = 'ease'
+        el.easing = 'ease'
       }
     } else {
-      this.easing = 'ease'
+      el.easing = 'ease'
     }
   }
 
   /**
    * Validate duration
+   * @param {Node} el Element directive is bound to
    * @param {Array} argsArray Array of arguments
    */
-  validateDuration (argsArray) {
-    this.duration = argsArray.hasOwnProperty(0) ? parseInt(argsArray[0]) : 300
-    this.durationInSeconds = `${this.duration / 1000}s`
+  validateDuration (el, argsArray) {
+    el.duration = argsArray.hasOwnProperty(0) ? parseInt(argsArray[0]) : 300
+    el.durationInSeconds = `${el.duration / 1000}s`
   }
 
   /**
    * Initialize styles on target element
    * @param {Node} el Element directive is bound to
+   * @param {Node} el Element directive is bound to
    */
-  initializeTarget (el) {
-    if (!this.open) {
+  initializeTarget (el, open) {
+    if (!open) {
       el.style.height = '0px'
     }
 
     el.style.overflow = 'hidden'
-    el.style.transition = `height ${this.easing} ${this.durationInSeconds}`
+    el.style.transition = `height ${el.easing} ${el.durationInSeconds}`
   }
 
   /**
    * Slide the target element
    * @param {Node} el Element directive is bound to
+   * @param {Boolean} open If element is open
    */
-  toggleSlide (el) {
-    if (this.open) {
-      this.slideClosed(el)
-    } else {
+  toggleSlide (el, open) {
+    if (open) {
       this.slideOpen(el)
+    } else {
+      this.slideClosed(el)
     }
   }
 
@@ -148,25 +152,22 @@ export default class VShowSlide {
    */
   slideOpen (el) {
     // Check if element is animating
-    if (this.isAnimating) {
-      clearTimeout(this.timeout)
+    if (el.isAnimating) {
+      clearTimeout(el.timeout)
     }
 
     // Set animating to true
-    this.isAnimating = true
+    el.isAnimating = true
 
     // Set element height to scroll height
     let scrollHeight = el.scrollHeight
     el.style.height = `${scrollHeight}px`
 
     // Reset element height to auto after animating
-    this.timeout = setTimeout(() => {
+    el.timeout = setTimeout(() => {
       el.style.height = 'auto'
-      this.isAnimating = false
-    }, this.duration)
-
-    // Mark element as closed
-    this.open = true
+      el.isAnimating = false
+    }, el.duration)
   }
 
   /**
@@ -175,12 +176,12 @@ export default class VShowSlide {
    */
   slideClosed (el) {
     // Check if element is animating
-    if (this.isAnimating) {
-      clearTimeout(this.timeout)
+    if (el.isAnimating) {
+      clearTimeout(el.timeout)
     }
 
     // Set animating to true
-    this.isAnimating = true
+    el.isAnimating = true
 
     // Set element height to scroll height
     let scrollHeight = el.scrollHeight
@@ -192,11 +193,8 @@ export default class VShowSlide {
     }, 25)
 
     // Update isAnimating after animation is done
-    this.timeout = setTimeout(() => {
-      this.isAnimating = false
-    }, this.duration)
-
-    // Mark element as closed
-    this.open = false
+    el.timeout = setTimeout(() => {
+      el.isAnimating = false
+    }, el.duration)
   }
 }
