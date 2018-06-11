@@ -4,6 +4,7 @@ A Vue.js directive for animating an element to and from `height: auto`
 ## Table of Contents
 
 - [Overview](#overview)
+- [Demo](#demo)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Support](#support)
@@ -11,6 +12,10 @@ A Vue.js directive for animating an element to and from `height: auto`
 
 ## Overview
 There is no pure CSS way to animate an element to or from `height: auto`. This Vue.js directive solves this. It works the same way as `v-show` but will show the element with a sliding animation. Duration and easing can be defined on the directive.
+
+## Demo
+Demo can be viewed here: [http://v-show-slide.peterhegman.com/](http://v-show-slide.peterhegman.com/) 
+Source code for demo can be viewed in `src/App.vue`
 
 ## Installation
 
