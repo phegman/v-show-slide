@@ -33,8 +33,9 @@
   },
   "scripts": {
     "build": "node_modules/.bin/webpack",
-    "prepublishOnly": "npm run build",
-    "test": "jest"
+    "prepublishOnly": "yarn run build",
+    "test": "jest",
+    "lint": "node_modules/.bin/eslint src --ext .vue"
   },
   "dependencies": {
     "vue": "^2.5.16"
