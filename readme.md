@@ -1,3 +1,6 @@
+[![npm](https://img.shields.io/npm/dw/localeval.svg)](https://www.npmjs.com/package/v-show-slide)
+[![Travis](https://img.shields.io/travis/phegman/v-show-slide.svg)](https://travis-ci.org/phegman/v-show-slide/)
+
 # v-show-slide 
 A Vue.js directive for animating an element to and from `height: auto`
 
