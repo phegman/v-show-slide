@@ -50,7 +50,7 @@ export default class VShowSlide {
    * @param {Object} binding Binding options
    */
   componentUpdated (el, binding) {
-    this.toggleSlide(el, binding.value)
+    this.toggleSlide(el, binding)
   }
 
   /**
@@ -136,13 +136,15 @@ export default class VShowSlide {
   /**
    * Slide the target element
    * @param {Node} el Element directive is bound to
-   * @param {Boolean} open If element is open
+   * @param {Object} binding Binding options
    */
-  toggleSlide (el, open) {
-    if (open) {
-      this.slideOpen(el)
-    } else {
-      this.slideClosed(el)
+  toggleSlide (el, binding) {
+    if (binding.value !== binding.oldValue) {
+      if (binding.value) {
+        this.slideOpen(el)
+      } else {
+        this.slideClosed(el)
+      }
     }
   }
 
