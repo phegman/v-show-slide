@@ -16,7 +16,7 @@ A Vue.js directive for animating an element from `height: auto` to `height: 0px`
 - [Demo](#demo)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Accessibility](#accessibility)
+- [Accessibility](#accessibility-a11y)
 - [Browser Support](#browser-support)
 - [Support](#support)
 - [Contributing](#contributing)
