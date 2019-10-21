@@ -1,15 +1,14 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es6": true
-    },
-    "extends": ["plugin:vue/strongly-recommended", "standard"],
-    "parserOptions": {
-        "sourceType": "module"
-    },
-    "globals": {
-        "beforeEach": false,
-        "test": false,
-        "expect": false
-    }
-};
+  root: true,
+  env: {
+    node: true,
+  },
+  extends: ['plugin:vue/essential', '@vue/prettier', '@vue/typescript'],
+  rules: {
+    'vue/max-attributes-per-line': 'off',
+    'vue/html-self-closing': 'off',
+  },
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+  },
+}
