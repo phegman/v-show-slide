@@ -1,7 +1,7 @@
-import VShowSlide from './interfaces/v-show-slide.interface'
+import VShowSlideInterface from './interfaces/v-show-slide.interface'
 import CustomEasing from './interfaces/custom-easing.interface'
 
-const VShowSlide: VShowSlide = {
+const VShowSlide: VShowSlideInterface = {
   easingOptions: {
     builtIn: ['linear', 'ease', 'ease-in', 'ease-out', 'ease-in-out'],
     custom: {},
@@ -79,7 +79,7 @@ const VShowSlide: VShowSlide = {
   validateOptions(options) {
     if (
       typeof options !== 'undefined' &&
-      options.hasOwnProperty('customEasing')
+      Object.prototype.hasOwnProperty.call(options, 'customEasing')
     ) {
       this.easingOptions.custom = options.customEasing as CustomEasing
     }
@@ -98,7 +98,10 @@ const VShowSlide: VShowSlide = {
    * Parse directive arguments
    */
   parseArgs(el, binding) {
-    if (binding.hasOwnProperty('arg') && typeof binding.arg === 'string') {
+    if (
+      Object.prototype.hasOwnProperty.call(binding, 'arg') &&
+      typeof binding.arg === 'string'
+    ) {
       const argsArray = binding.arg.split(':')
       const easing = this.validateEasing(argsArray)
       const duration = this.validateDuration(argsArray)
@@ -125,11 +128,12 @@ const VShowSlide: VShowSlide = {
    * Validate easing option
    */
   validateEasing(argsArray) {
-    if (argsArray.hasOwnProperty(1)) {
+    if (Object.prototype.hasOwnProperty.call(argsArray, 1)) {
       if (this.easingOptions.builtIn.indexOf(argsArray[1]) > -1) {
         return argsArray[1]
       } else if (
-        this.easingOptions.custom.hasOwnProperty(
+        Object.prototype.hasOwnProperty.call(
+          this.easingOptions.custom,
           this.kebabToCamel(argsArray[1])
         )
       ) {
@@ -146,7 +150,9 @@ const VShowSlide: VShowSlide = {
    * Validate duration
    */
   validateDuration(argsArray) {
-    return argsArray.hasOwnProperty(0) ? parseInt(argsArray[0]) : 300
+    return Object.prototype.hasOwnProperty.call(argsArray, 0)
+      ? parseInt(argsArray[0])
+      : 300
   },
 
   /**
