@@ -216,9 +216,17 @@ const VShowSlide: VShowSlideInterface = {
     // Make element visible again
     el.style.visibility = 'visible'
 
-    // Set element height to scroll height
-    let scrollHeight = el.scrollHeight
-    el.style.height = `${scrollHeight}px`
+    // Set element height to scroll height + calculated border height
+    const scrollHeight = el.scrollHeight
+    const computedStyle = window.getComputedStyle(el)
+    const borderBottom = parseFloat(
+      computedStyle.getPropertyValue('border-bottom-width')
+    )
+    const borderTop = parseFloat(
+      computedStyle.getPropertyValue('border-top-width')
+    )
+
+    el.style.height = `${scrollHeight + borderBottom + borderTop}px`
 
     // Reset element height to auto after animating
     const newTimeout = setTimeout(() => {
@@ -247,7 +255,7 @@ const VShowSlide: VShowSlideInterface = {
     // Set animating to true
     this.setTargetPropertyByEl(el, 'isAnimating', true)
 
-    let scrollHeight = el.scrollHeight
+    const scrollHeight = el.scrollHeight
     el.style.height = `${scrollHeight}px`
     // https://gist.github.com/paulirish/5d52fb081b3570c81e3a
     const forceRedraw = el.offsetLeft
