@@ -95,6 +95,21 @@ const VShowSlide: VShowSlideInterface = {
   },
 
   /**
+   * Fire a custom event
+   */
+  fireEvent(el, eventName) {
+    // CustomEvent is supported
+    if (typeof window.CustomEvent === 'function') {
+      el.dispatchEvent(new CustomEvent(eventName))
+    } else {
+      // CustomEvent is not supported, fire the event the old fashioned way
+      const event = document.createEvent('CustomEvent')
+      event.initCustomEvent(eventName, false, false, null)
+      el.dispatchEvent(event)
+    }
+  },
+
+  /**
    * Parse directive arguments
    */
   parseArgs(el, binding) {
@@ -186,6 +201,8 @@ const VShowSlide: VShowSlideInterface = {
    * Slide element open
    */
   slideOpen(el) {
+    this.fireEvent(el, 'slide-open-start')
+
     const { isAnimating, timeout, duration } = this.getTargetByEl(el)
 
     // Check if element is animating
@@ -207,6 +224,8 @@ const VShowSlide: VShowSlideInterface = {
     const newTimeout = setTimeout(() => {
       el.style.height = 'auto'
       this.setTargetPropertyByEl(el, 'isAnimating', false)
+
+      this.fireEvent(el, 'slide-open-end')
     }, duration)
 
     this.setTargetPropertyByEl(el, 'timeout', newTimeout)
@@ -216,7 +235,10 @@ const VShowSlide: VShowSlideInterface = {
    * Slide element closed
    */
   slideClosed(el) {
+    this.fireEvent(el, 'slide-close-start')
+
     const { isAnimating, timeout, duration } = this.getTargetByEl(el)
+
     // Check if element is animating
     if (isAnimating) {
       clearTimeout(timeout)
@@ -237,6 +259,8 @@ const VShowSlide: VShowSlideInterface = {
     const newTimeout = setTimeout(() => {
       this.setTargetPropertyByEl(el, 'isAnimating', false)
       el.style.visibility = 'hidden'
+
+      this.fireEvent(el, 'slide-close-end')
     }, duration)
 
     this.setTargetPropertyByEl(el, 'timeout', newTimeout)

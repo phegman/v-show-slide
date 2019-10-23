@@ -20,6 +20,7 @@ export default interface VShowSlide {
   validateOptions: (options?: PluginOptions) => void
   kebabToCamel: (string: string) => string
   parseArgs: (el: HTMLElement, binding: DirectiveBinding) => void
+  fireEvent: (el: HTMLElement, eventName: string) => void
   validateEasing: (argsArray: string[]) => string
   validateDuration: (argsArray: string[]) => number
   initializeTarget: (el: HTMLElement, open: boolean) => void
