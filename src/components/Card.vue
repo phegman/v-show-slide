@@ -8,7 +8,15 @@
       <!-- /.card-header -->
       <div class="card-content">
         <p>{{ description }}</p>
-        <ul :id="id" v-show-slide:[directiveArg]="open" class="features">
+        <ul
+          :id="id"
+          v-show-slide:[directiveArg]="open"
+          class="features"
+          @slide-open-start="slideOpenStart"
+          @slide-open-end="slideOpenEnd"
+          @slide-close-start="slideCloseStart"
+          @slide-close-end="slideCloseEnd"
+        >
           <li>Aliquam lorem</li>
           <li>Praesent porttitor nulla vitae posuere</li>
           <li>Suspendisse nisl elit rhoncus</li>
@@ -60,6 +68,22 @@ export default class CardDefault extends Vue {
 
   toggleFeatures() {
     this.open = !this.open
+  }
+
+  slideOpenStart() {
+    console.log('Slide Open Start')
+  }
+
+  slideOpenEnd() {
+    console.log('Slide Open End')
+  }
+
+  slideCloseStart() {
+    console.log('Slide Close Start')
+  }
+
+  slideCloseEnd() {
+    console.log('Slide Close End')
   }
 }
 </script>

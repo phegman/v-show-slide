@@ -132,6 +132,77 @@ Your custom easing can then be used like so (make sure to convert easing name to
 
 `v-show-slide:400:example-easing`
 
+### Events
+
+Events are fired on the same element the directive was defined on. Below are the available events:
+
+| Event              | Description                                    |
+| ------------------ | ---------------------------------------------- |
+| @slide-open-start  | Fired when the element starts sliding open     |
+| @slide-open-end    | Fired when the element finishes sliding open   |
+| @slide-close-start | Fired when the element starts sliding closed   |
+| @slide-close-end   | Fired when the element finishes sliding closed |
+
+Example:
+
+```vue
+<template>
+  <div id="app" class="app">
+    <ul
+      id="features"
+      v-show-slide="featuresOpen"
+      class="features"
+      @slide-open-start="slideOpenStart"
+      @slide-open-end="slideOpenEnd"
+      @slide-close-start="slideCloseStart"
+      @slide-close-end="slideCloseEnd"
+    >
+      <li>Aliquam lorem</li>
+      <li>Praesent porttitor nulla vitae posuere</li>
+      <li>Suspendisse nisl elit rhoncus</li>
+      <li>Donec mi odio faucibus</li>
+      <li>Curabitur suscipit suscipit</li>
+    </ul>
+    <button
+      @click="toggleFeatures"
+      class="toggle-features"
+      aria-controls="features"
+      :aria-expanded="featuresOpen ? 'true' : 'false'"
+    >
+      {{ featuresOpen ? 'Hide Features' : 'View Features' }}
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      featuresOpen: false,
+    }
+  },
+  methods: {
+    toggleFeatures() {
+      this.featuresOpen = !this.featuresOpen
+    },
+    slideOpenStart() {
+      console.log('Slide Open Start')
+    },
+    slideOpenEnd() {
+      console.log('Slide Open End')
+    },
+    slideCloseStart() {
+      console.log('Slide Close Start')
+    },
+    slideCloseEnd() {
+      console.log('Slide Close End')
+    },
+  },
+}
+</script>
+```
+
 ## Accessibility (A11y)
 
 This directive will prevent child elements of the sliding element from being focusable when closed. Other than that it does not handle any other aspects of a11y such as adding or removing of `aria` attributes. Check out the [WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices/) for more information. The most basic setup is to use `aria-expanded` and `aria-controls` as shown in the above [example](#usage).
