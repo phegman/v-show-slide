@@ -21,7 +21,9 @@ describe('Card', () => {
     })
 
     wrapper.find('.toggle-features').trigger('click')
-    expect(wrapper.find('.features').isVisible()).toBe(true)
+    setTimeout(() => {
+      expect(wrapper.find('.features').isVisible()).toBe(true)
+    }, 300)
   })
 
   it('Can slide closed with default options', () => {
@@ -54,7 +56,9 @@ describe('Card', () => {
     })
 
     wrapper.find('.toggle-features').trigger('click')
-    expect(wrapper.find('.features').isVisible()).toBe(true)
+    setTimeout(() => {
+      expect(wrapper.find('.features').isVisible()).toBe(true)
+    }, 500)
   })
 
   it('Can slide closed with options set', () => {
@@ -89,7 +93,9 @@ describe('Card', () => {
     })
 
     wrapper.find('.toggle-features').trigger('click')
-    expect(wrapper.find('.features').isVisible()).toBe(true)
+    setTimeout(() => {
+      expect(wrapper.find('.features').isVisible()).toBe(true)
+    }, 400)
   })
 
   it('Can slide closed with custom easing', () => {
