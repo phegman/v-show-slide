@@ -5,6 +5,7 @@
   "main": "dist/v-show-slide.umd.js",
   "module": "dist/v-show-slide.esm.js",
   "unpkg": "dist/v-show-slide.min.js",
+  "types": "dist/index.d.ts",
   "author": "Peter Hegman",
   "license": "GPL-3.0",
   "keywords": [
